@@ -1,6 +1,7 @@
 import React from "react";
 
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
+import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {NavigationContainer} from "@react-navigation/native";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {Ionicons} from "@expo/vector-icons";
@@ -13,6 +14,30 @@ import ProfileScreen from "./screens/ProfileScreen";
 
 const Tab = createBottomTabNavigator();
 
+const HomeStackNavigator = createNativeStackNavigator();
+
+function MyStack() {
+	return (
+		<HomeStackNavigator.Navigator initialRouteName="HomeScreen">
+			<HomeStackNavigator.Screen
+				name="HomeScreen"
+				component={HomeScreen}
+				options={{
+					headerShown: false,
+				}}
+			></HomeStackNavigator.Screen>
+			<HomeStackNavigator.Screen
+				name="Stack"
+				component={StackScreen}
+				options={{
+					headerShown: false,
+					headerBackTitleVisible: false,
+				}}
+			></HomeStackNavigator.Screen>
+		</HomeStackNavigator.Navigator>
+	);
+}
+
 function MyTabs() {
 	return (
 		<Tab.Navigator
@@ -23,7 +48,7 @@ function MyTabs() {
 		>
 			<Tab.Screen
 				name="Home"
-				component={HomeScreen}
+				component={MyStack}
 				options={{
 					tabBarIcon: ({color, size}) => {
 						return (
